@@ -1,10 +1,7 @@
 import {
     Body,
     Controller,
-    Get,
-    Path,
     Post,
-    Query,
     Route,
     Response,
     SuccessResponse,
