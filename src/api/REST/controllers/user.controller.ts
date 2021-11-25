@@ -17,9 +17,9 @@ import { UsersService } from "../services/user.service";
   export class UsersController extends Controller {
 
     /**
-     * 
+     * Creates a user with the given data. 
      * @param requestBody 
-     * @returns 
+     * @returns Craeted user with id and generated password
      */
     @Response<ValidateErrorJSON>(422, "Validation Failed")
     @SuccessResponse("201", "Created") 
