@@ -5,6 +5,6 @@ const passwordOptions = {
     numbers: true
 };
 
-export function generatePassword():string {
+export function generatePassword(): string {
     return generate(passwordOptions);
 }
