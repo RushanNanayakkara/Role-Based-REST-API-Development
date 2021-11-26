@@ -8,17 +8,17 @@ class UsersService {
     return new AdminUser(
       uuidv4(),
       userCreationParams.name,
-      "$2a$10$W2cr7YCvYxlwicl.Ce0pUuQEuVqSGrO9CO07Fe8g9NS7SCJuNpmeC",
+      "$2a$10$0mj06IJ0/wMOXAWwP2mWbuiPKp42GxuUv7f9FIgDn1kDE9jZb8ZZK",
       UserType.Admin,
     );
   }
 
-  public get(username:String): UserBase {
+  public get(username:string): UserBase {
     console.log(username);
     return new AdminUser(
       uuidv4(),
-      "Rushan",
-      "$2a$10$W2cr7YCvYxlwicl.Ce0pUuQEuVqSGrO9CO07Fe8g9NS7SCJuNpmeC",
+      username,
+      "$2a$10$0mj06IJ0/wMOXAWwP2mWbuiPKp42GxuUv7f9FIgDn1kDE9jZb8ZZK",
       UserType.Admin,
     );
   }

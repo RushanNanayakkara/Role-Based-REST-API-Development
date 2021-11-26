@@ -69,6 +69,18 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"RefreshRequest": {
+				"properties": {
+					"refresh_token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"refresh_token"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"UserCreationResponse": {
 				"properties": {
 					"password": {
@@ -151,6 +163,49 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/AuthRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/refresh-token": {
+			"post": {
+				"operationId": "RefreshToken",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TokenSet"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Invalid data",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Refresh token set for valid refresh token.",
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RefreshRequest"
 							}
 						}
 					}
