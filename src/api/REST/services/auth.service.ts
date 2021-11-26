@@ -11,7 +11,7 @@ import { Auth_Token_TTL, JWT_SECRET, Refresh_Token_TTL } from "../util/constants
 class AuthService {
 
     public async generateToken(authParam: AuthRequest): Promise<TokenSet> {
-        const user: UserBase = usersService.get(authParam.username);
+        const user: UserBase = await usersService.get(authParam.username);
 
         if (!user) {
             throw new UnauthorizedError("Invalid credentials");
@@ -47,7 +47,7 @@ class AuthService {
             throw new UnauthorizedError(err.message);
         }
 
-        const user: UserBase = usersService.get(payload.uid);
+        const user: UserBase = await usersService.get(payload.uid);
         return new TokenSet(
             await this.generateAccessToken(user),
             Auth_Token_TTL,
