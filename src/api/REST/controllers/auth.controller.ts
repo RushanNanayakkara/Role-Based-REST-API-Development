@@ -21,30 +21,30 @@ export class AuthController extends Controller {
      * @param requestBody
      * @returns JWT token and refresh token if user is authenticated 
      */
-     @Post("generate-token")
-     @SuccessResponse("201", "Created")
-     @Example(userCreateResonse)
-     @Response<ValidateErrorJSON>(422, "Invalid data")
-     public async generateToken(
-         @Body() requestBody: AuthRequest
-     ): Promise<TokenSet> {
-         this.setStatus(201);
-         return authService.generateToken(requestBody);
-     }
+    @Post("generate-token")
+    @SuccessResponse("201", "Created")
+    @Example(userCreateResonse)
+    @Response<ValidateErrorJSON>(422, "Invalid data")
+    public async generateToken(
+        @Body() requestBody: AuthRequest
+    ): Promise<TokenSet> {
+        this.setStatus(201);
+        return authService.generateToken(requestBody);
+    }
 
-     /**
-      * Refresh token set for valid refresh token.   
-      * @param requestBody
-      * @returns JWT token and refresh token if user is authenticated 
-      */
-     @Post("refresh-token")
-     @SuccessResponse("201", "Created")
-     @Example(userCreateResonse)
-     @Response<ValidateErrorJSON>(422, "Invalid data")
-     public async refreshToken(
-         @Body() requestBody: RefreshRequest
-     ): Promise<TokenSet> {
-         this.setStatus(201);
-         return authService.refreshToken(requestBody);
-     }
+    /**
+     * Refresh token set for valid refresh token.   
+     * @param requestBody
+     * @returns JWT token and refresh token if user is authenticated 
+     */
+    @Post("refresh-token")
+    @SuccessResponse("201", "Created")
+    @Example(userCreateResonse)
+    @Response<ValidateErrorJSON>(422, "Invalid data")
+    public async refreshToken(
+        @Body() requestBody: RefreshRequest
+    ): Promise<TokenSet> {
+        this.setStatus(201);
+        return authService.refreshToken(requestBody);
+    }
 }
