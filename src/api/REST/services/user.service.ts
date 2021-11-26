@@ -1,23 +1,17 @@
-import { User, UserCreationParams, UserType } from "../models/user.model";
+import { AdminUser, UserBase, UserType } from "../models/user.model";
 import { v4 as uuidv4 } from 'uuid';
+import { UserCreationRequest } from "../interfaces/requests/usercreation.request";
 
-export class UsersService {
+class UsersService {
 
-  public get(id: string, name?: string): User {
-    return {
-      id,
-      password: "test password",
-      name: name ?? "Rushan Nanayakkara",
-      type: UserType.Admin
-    };
-  }
-
-  public create(userCreationParams: UserCreationParams): User {
-    return {
-      id: uuidv4(),
-      password: "testpass",
-      ...userCreationParams,
-      type: UserType.Admin
-    };
+  public create(userCreationParams: UserCreationRequest): UserBase {
+    return new AdminUser(
+      uuidv4(),
+      userCreationParams.name,
+      "testpass",
+      UserType.Admin,
+    );
   }
 }
+
+export const usersService = new UsersService();

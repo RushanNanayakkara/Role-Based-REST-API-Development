@@ -5,27 +5,31 @@ import {
   Route,
   Response,
   SuccessResponse,
+  Example,
 } from "tsoa";
+import { userCreateResonse } from "../util/examples/user.example.response";
 import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
-import { UserCreationParams } from "../models/user.model";
-import { UsersService } from "../services/user.service";
+import { usersService } from "../services/user.service";
+import { UserCreationRequest } from "../interfaces/requests/usercreation.request";
+import { UserCreationResponse } from "../models/responses/user.create.response";
 
-@Route("users")
+@Route("users") 
 export class UsersController extends Controller {
 
   /**
    * Creates a user with the given data. 
-   * @param requestBody 
+   * @param requestBody  
    * @returns Craeted user with id and generated password
    */
+  @Post()   
+  @SuccessResponse("201", "Created") 
+  @Example(userCreateResonse)
   @Response<ValidateErrorJSON>(422, "Validation Failed")
-  @SuccessResponse("201", "Created")
-  @Post()
   public async createUser(
-    @Body() requestBody: UserCreationParams
-  ): Promise<void> {
+    @Body() requestBody: UserCreationRequest
+  ): Promise<UserCreationResponse> {
     this.setStatus(201);
-    new UsersService().create(requestBody);
-    return;
+    const createdUser = usersService.create(requestBody);
+    return new UserCreationResponse(createdUser);
   }
 }

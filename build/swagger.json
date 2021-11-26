@@ -6,6 +6,17 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"UserCreationResponse": {
+				"properties": {
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password"
+				],
+				"type": "object"
+			},
 			"ValidateErrorJSON": {
 				"properties": {
 					"message": {
@@ -28,7 +39,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Pick_User.name_": {
+			"UserCreationRequest": {
 				"properties": {
 					"name": {
 						"type": "string"
@@ -38,10 +49,7 @@
 					"name"
 				],
 				"type": "object",
-				"description": "From T, pick a set of properties whose keys are in the union K"
-			},
-			"UserCreationParams": {
-				"$ref": "#/components/schemas/Pick_User.name_"
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -64,7 +72,17 @@
 				"operationId": "CreateUser",
 				"responses": {
 					"201": {
-						"description": "Created"
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserCreationResponse"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
 					},
 					"422": {
 						"description": "Validation Failed",
@@ -85,7 +103,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserCreationParams"
+								"$ref": "#/components/schemas/UserCreationRequest"
 							}
 						}
 					}
