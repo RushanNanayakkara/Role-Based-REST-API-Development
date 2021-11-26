@@ -14,12 +14,11 @@ class UsersService {
   }
 
   public get(username:string): UserBase {
-    console.log(username);
     return new AdminUser(
       uuidv4(),
       username,
       "$2a$10$0mj06IJ0/wMOXAWwP2mWbuiPKp42GxuUv7f9FIgDn1kDE9jZb8ZZK",
-      UserType.Admin,
+      UserType.Instructor,
     );
   }
 }
