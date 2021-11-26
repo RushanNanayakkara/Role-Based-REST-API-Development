@@ -18,3 +18,23 @@ export class ModuleResponse{
         }
     }
 }
+
+export class ExecutedModule{
+    constructor(private _executionResult:string){}
+
+    
+    public get executionResult() : string {
+        return this._executionResult;
+    }
+
+    
+    public set executionResult(v : string) {
+        this._executionResult = v;
+    }
+    
+    public toJSON(){
+        return{
+            result: this._executionResult
+        }
+    }
+}
