@@ -13,4 +13,5 @@ export interface JWTPayload{
     exp: number,
     iss: string,
     sub: string,
+    scopes: [string]
 }
