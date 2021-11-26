@@ -1,5 +1,5 @@
 export enum ClassModule{
-    IMAGE_PROCESSING, 
-    VOICE_REC, 
-    FACE_DETECT
+    IMAGE_PROCESSING="Image Processing", 
+    VOICE_REC="Voice Recognition", 
+    FACE_DETECT="Face Detection"
 }

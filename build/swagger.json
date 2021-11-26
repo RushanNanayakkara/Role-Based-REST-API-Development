@@ -6,14 +6,28 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"UserCreationResponse": {
+			"TokenSet": {
 				"properties": {
-					"password": {
+					"refreshTokenExpire": {
+						"type": "number",
+						"format": "double"
+					},
+					"resfreshToken": {
+						"type": "string"
+					},
+					"authTokenExpire": {
+						"type": "number",
+						"format": "double"
+					},
+					"authToken": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"password"
+					"refreshTokenExpire",
+					"resfreshToken",
+					"authTokenExpire",
+					"authToken"
 				],
 				"type": "object"
 			},
@@ -38,6 +52,33 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"AuthRequest": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserCreationResponse": {
+				"properties": {
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password"
+				],
+				"type": "object"
 			},
 			"UserCreationRequest": {
 				"properties": {
@@ -73,6 +114,49 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/auth/generate-token": {
+			"post": {
+				"operationId": "GenerateToken",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TokenSet"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Invalid data",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Generates auth token for correnct credentials.",
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AuthRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/users": {
 			"post": {
 				"operationId": "CreateUser",

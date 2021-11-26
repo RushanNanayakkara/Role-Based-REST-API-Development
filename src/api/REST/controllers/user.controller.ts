@@ -11,8 +11,8 @@ import {
 import { userCreateResonse } from "../util/examples/user.example.response";
 import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
 import { usersService } from "../services/user.service";
-import { UserCreationRequest } from "../interfaces/requests/usercreation.request";
-import { UserCreationResponse } from "../models/responses/user.create.response";
+import { UserCreationRequest } from "../interfaces/requests/user.request";
+import { UserCreationResponse } from "../models/responses/user.response";
 
 @Route("users") 
 export class UsersController extends Controller {

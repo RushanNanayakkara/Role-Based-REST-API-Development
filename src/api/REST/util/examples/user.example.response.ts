@@ -1,4 +1,4 @@
-import { UserCreationResponse } from "../../models/responses/user.create.response";
+import { UserCreationResponse } from "../../models/responses/user.response";
 import { InstructorUser, UserType } from "../../models/user.model";
 
 const instructorUser = new InstructorUser(
