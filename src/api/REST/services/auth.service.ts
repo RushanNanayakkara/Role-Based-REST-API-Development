@@ -9,27 +9,27 @@ import { UnauthorizedError } from "../interfaces/errors/unauthorized.error";
 import { Auth_Token_TTL, JWT_SECRET, Refresh_Token_TTL } from "../util/constants";
 
 class AuthService {
-    
+
     public async generateToken(authParam: AuthRequest): Promise<TokenSet> {
         const user: UserBase = usersService.get(authParam.username);
-        
-        if(!user){
+
+        if (!user) {
             throw new UnauthorizedError("Invalid credentials");
         }
 
-        const isEqaual = await bcrypt.compare(authParam.password,user.password)
-        .catch(err=>{
-            console.error(err);
-            throw new Error("Internal error.");
-        });
+        const isEqaual = await bcrypt.compare(authParam.password, user.password)
+            .catch(err => {
+                console.error(err);
+                throw new Error("Internal error.");
+            });
 
-        if(!isEqaual){
+        if (!isEqaual) {
             throw new UnauthorizedError("Invalid credentials");
         }
 
         const accessToken = await this.generateAccessToken(user);
         const refreshToken = await this.generateRefreshToken(user);
-        
+
         return new TokenSet(
             accessToken,
             Auth_Token_TTL,
@@ -39,14 +39,14 @@ class AuthService {
     }
 
     public async refreshToken(refreshParam: RefreshRequest): Promise<TokenSet> {
-        let payload:JWTPayload;
-        try{
+        let payload: JWTPayload;
+        try {
             payload = verifyJwt(refreshParam.refresh_token, JWT_SECRET) as JWTPayload;
         }
-        catch(err:any){
+        catch (err: any) {
             throw new UnauthorizedError(err.message);
         }
- 
+
         const user: UserBase = usersService.get(payload.uid);
         return new TokenSet(
             await this.generateAccessToken(user),
@@ -58,7 +58,7 @@ class AuthService {
 
     private async generateAccessToken(user: UserBase): Promise<string> {
         const userModules: String[] = await moduleService
-                                        .getForUser(user.id);
+            .getForUser(user.id);
         const access_token = signJwt(
             {
                 uid: user.id,

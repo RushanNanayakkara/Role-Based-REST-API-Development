@@ -7,13 +7,13 @@ import { UserCreationResponse } from "../models/responses/user.response";
 class UsersService {
 
   public async create(_userCreationParams: UserCreationRequest, _userType: UserType): Promise<UserCreationResponse> {
-    const password:string = generatePassword();
+    const password: string = generatePassword();
     // const hashedPassword:string =  await bcrypt.hash(password,Bcrypt_Salt);
     // todo: complete user creation
     return new UserCreationResponse(password);
   }
 
-  public get(username:string): UserBase {
+  public get(username: string): UserBase {
     return new AdminUser(
       uuidv4(),
       username,

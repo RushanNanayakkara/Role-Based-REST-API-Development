@@ -44,9 +44,9 @@ export class UsersController extends Controller {
     // @Example(userCreateResonse)
     public async executeModule(@Request() request: AuthenticatedRequest, @Path() module: ClassModule): Promise<ExecutedModule> {
         this.setStatus(200);
-        if(!request.user.scopes.includes(module.toString())){
+        if (!request.user.scopes.includes(module.toString())) {
             throw new UnauthorizedError("Unauthorized module");
         }
         return await moduleService.executeModule(module);
     }
-}  
+}

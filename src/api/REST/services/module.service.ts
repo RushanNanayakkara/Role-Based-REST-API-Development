@@ -3,12 +3,12 @@ import { ClassModule } from "../util/constants";
 
 class ModuleService {
 
-  public async getForUser(userId:String): Promise<ClassModule[]> {
+  public async getForUser(userId: String): Promise<ClassModule[]> {
     console.log(userId);
-    return [ClassModule.FACE_DETECT,ClassModule.IMAGE_PROCESSING]
+    return [ClassModule.FACE_DETECT, ClassModule.IMAGE_PROCESSING]
   }
 
-  public async executeModule(module:ClassModule): Promise<ExecutedModule> {
+  public async executeModule(module: ClassModule): Promise<ExecutedModule> {
     return new ExecutedModule(`Hello Module ${module}`);
   }
 }

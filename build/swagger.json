@@ -92,6 +92,64 @@
 				],
 				"type": "object"
 			},
+			"ClassModule": {
+				"enum": [
+					"image-processing",
+					"voice recognition",
+					"face-detection"
+				],
+				"type": "string"
+			},
+			"ClassCreateRequest": {
+				"properties": {
+					"students": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modules": {
+						"items": {
+							"$ref": "#/components/schemas/ClassModule"
+						},
+						"type": "array"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"students",
+					"modules",
+					"name"
+				],
+				"type": "object"
+			},
+			"ModuleResponse": {
+				"properties": {
+					"modules": {
+						"items": {
+							"$ref": "#/components/schemas/ClassModule"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"modules"
+				],
+				"type": "object"
+			},
+			"ExecutedModule": {
+				"properties": {
+					"result": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"result"
+				],
+				"type": "object"
+			},
 			"UserCreationRequest": {
 				"properties": {
 					"name": {
@@ -210,6 +268,119 @@
 						}
 					}
 				}
+			}
+		},
+		"/class": {
+			"post": {
+				"operationId": "CreateInstructorUser",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserCreationResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a user with the given data.",
+				"security": [
+					{
+						"jwt": [
+							"INSTRUCTOR"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ClassCreateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/modules": {
+			"get": {
+				"operationId": "GetModuleForUser",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ModuleResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Failed",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ValidateErrorJSON"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a user with the given data.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/modules/execute/{module}": {
+			"get": {
+				"operationId": "ExecuteModule",
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ExecutedModule"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a user with the given data.",
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "module",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/ClassModule"
+						}
+					}
+				]
 			}
 		},
 		"/users/instructor": {

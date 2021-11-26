@@ -1,3 +1,3 @@
-export interface UserCreationRequest{
+export interface UserCreationRequest {
     name: string
 }

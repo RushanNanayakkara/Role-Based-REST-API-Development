@@ -6,16 +6,16 @@ import {
     Response,
     SuccessResponse,
     Security,
-  } from "tsoa";
-  import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
-  import { UserCreationResponse } from "../models/responses/user.response";
-  import { UserType } from "../models/user.model";
+} from "tsoa";
+import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
+import { UserCreationResponse } from "../models/responses/user.response";
+import { UserType } from "../models/user.model";
 import { ClassCreateRequest } from "../interfaces/requests/class.request";
 import { classService } from "../services/class.service";
-  
-  @Route("class")
-  export class ClassController extends Controller {
-  
+
+@Route("class")
+export class ClassController extends Controller {
+
     /**
      * Creates a user with the given data.
      * @param requestBody
@@ -27,10 +27,9 @@ import { classService } from "../services/class.service";
     // @Example(userCreateResonse)
     @Response<ValidateErrorJSON>(422, "Validation Failed")
     public async createInstructorUser(
-      @Body() requestBody: ClassCreateRequest
+        @Body() requestBody: ClassCreateRequest
     ): Promise<UserCreationResponse> {
-      this.setStatus(201);
-      return classService.create(requestBody);
+        this.setStatus(201);
+        return classService.create(requestBody);
     }
-  
-  }
+}

@@ -10,17 +10,17 @@ export async function expressAuthentication(
     scopes?: string[]
 ): Promise<any> {
     if (securityName === "jwt") {
-        const {authorization} = request.headers;
+        const { authorization } = request.headers;
 
         if (!authorization) throw new UnauthorizedError("Unauthorized");
 
         if (!authorization.startsWith("Bearer"))
-          throw new UnauthorizedError("Unauthorized");
-        
+            throw new UnauthorizedError("Unauthorized");
+
         const split = authorization.split("Bearer ");
-        
+
         if (split.length !== 2) throw new UnauthorizedError("Unauthorized");
-        
+
         const token = split[1];
 
         return new Promise((resolve, reject) => {
@@ -28,8 +28,8 @@ export async function expressAuthentication(
                 reject(new UnauthorizedError("Unauthorized"));
             }
             jwt.verify(token, JWT_SECRET, function (err: any, decoded: any) {
-                const decodedPayload:JWTPayload = decoded as JWTPayload; 
-                if (err) { 
+                const decodedPayload: JWTPayload = decoded as JWTPayload;
+                if (err) {
                     console.error(err.message);
                     reject(new UnauthorizedError("Invalid token"));
                 } else {

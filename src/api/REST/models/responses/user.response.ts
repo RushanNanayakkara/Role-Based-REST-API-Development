@@ -1,6 +1,6 @@
 export class UserCreationResponse {
 
-    constructor(private _password:string) {}
+    constructor(private _password: string) { }
 
     public get password(): string {
         return this._password;

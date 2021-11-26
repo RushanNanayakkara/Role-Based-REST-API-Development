@@ -41,7 +41,7 @@ app.use(function errorHandler(
       details: err?.fields,
     });
   }
-  if(err instanceof XeptagonError){
+  if (err instanceof XeptagonError) {
     return res.status(err.statusCode).json({
       message: err.message
     })
