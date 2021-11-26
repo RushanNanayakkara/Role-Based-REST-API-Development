@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { RegisterRoutes } from "../build/routes";
 import swaggerUi from "swagger-ui-express";
 import { ValidateError } from "@tsoa/runtime";
+import { XeptagonError } from "./api/REST/interfaces/errors/xeptagon.error";
 
 export const app = express();
 
@@ -39,6 +40,11 @@ app.use(function errorHandler(
       message: "Validation Failed",
       details: err?.fields,
     });
+  }
+  if(err instanceof XeptagonError){
+    return res.status(err.statusCode).json({
+      message: err.message
+    })
   }
   if (err instanceof Error) {
     return res.status(500).json({

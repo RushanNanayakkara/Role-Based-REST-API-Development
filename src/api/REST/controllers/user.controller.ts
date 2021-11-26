@@ -6,6 +6,7 @@ import {
   Response,
   SuccessResponse,
   Example,
+  Security,
 } from "tsoa";
 import { userCreateResonse } from "../util/examples/user.example.response";
 import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
@@ -22,6 +23,7 @@ export class UsersController extends Controller {
    * @returns Craeted user with id and generated password
    */
   @Post()   
+  @Security("jwt")
   @SuccessResponse("201", "Created") 
   @Example(userCreateResonse)
   @Response<ValidateErrorJSON>(422, "Validation Failed")
