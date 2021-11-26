@@ -27,8 +27,8 @@ class AuthService {
             throw new UnauthorizedError("Invalid credentials");
         }
 
-        const accessToken = this.generateAccessToken(user);
-        const refreshToken = this.generateRefreshToken(user);
+        const accessToken = await this.generateAccessToken(user);
+        const refreshToken = await this.generateRefreshToken(user);
         
         return new TokenSet(
             accessToken,
@@ -38,7 +38,7 @@ class AuthService {
         );
     }
 
-    public refreshToken(refreshParam: RefreshRequest): TokenSet {
+    public async refreshToken(refreshParam: RefreshRequest): Promise<TokenSet> {
         let payload:JWTPayload;
         try{
             payload = verifyJwt(refreshParam.refresh_token, JWT_SECRET) as JWTPayload;
@@ -49,17 +49,18 @@ class AuthService {
  
         const user: UserBase = usersService.get(payload.uid);
         return new TokenSet(
-            this.generateAccessToken(user),
+            await this.generateAccessToken(user),
             Auth_Token_TTL,
             this.generateRefreshToken(user),
             Refresh_Token_TTL
         );
     }
 
-    private generateAccessToken(user: UserBase): string {
-        const userModules: String[] = moduleService
-                                        .getForUser(user.id)
-                                        .map(classModule => classModule.toString());
+    private async generateAccessToken(user: UserBase): Promise<string> {
+        const userModules: String[] = await moduleService
+                                        .getForUser(user.id);
+
+                                        
         const access_token = signJwt(
             {
                 uid: user.id,
