@@ -13,6 +13,7 @@ import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
 import { usersService } from "../services/user.service";
 import { UserCreationRequest } from "../interfaces/requests/user.request";
 import { UserCreationResponse } from "../models/responses/user.response";
+import { ClassModule } from "../util/constants";
 
 @Route("users") 
 export class UsersController extends Controller {
@@ -23,7 +24,7 @@ export class UsersController extends Controller {
    * @returns Craeted user with id and generated password
    */
   @Post()   
-  @Security("jwt")
+  @Security("jwt",[ClassModule.VOICE_REC])
   @SuccessResponse("201", "Created") 
   @Example(userCreateResonse)
   @Response<ValidateErrorJSON>(422, "Validation Failed")

@@ -47,7 +47,4 @@ export class AuthController extends Controller {
          this.setStatus(201);
          return authService.refreshToken(requestBody);
      }
-
-
-
 }

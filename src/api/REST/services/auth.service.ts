@@ -6,12 +6,9 @@ import { usersService } from './user.service';
 import { moduleService } from "./module.service";
 import bcrypt from "bcrypt";
 import { UnauthorizedError } from "../interfaces/errors/unauthorized.error";
+import { Auth_Token_TTL, JWT_SECRET, Refresh_Token_TTL } from "../util/constants";
 
 class AuthService {
-
-    readonly JWT_SECRET:string = "test";
-    readonly Auth_Token_TTL: number = 60;
-    readonly Refresh_Token_TTL: number = 60*60;
     
     public async generateToken(authParam: AuthRequest): Promise<TokenSet> {
         const user: UserBase = usersService.get(authParam.username);
@@ -35,16 +32,16 @@ class AuthService {
         
         return new TokenSet(
             accessToken,
-            this.Auth_Token_TTL,
+            Auth_Token_TTL,
             refreshToken,
-            this.Refresh_Token_TTL
+            Refresh_Token_TTL
         );
     }
 
     public refreshToken(refreshParam: RefreshRequest): TokenSet {
         let payload:JWTPayload;
         try{
-            payload = verifyJwt(refreshParam.refresh_token,this.JWT_SECRET) as JWTPayload;
+            payload = verifyJwt(refreshParam.refresh_token, JWT_SECRET) as JWTPayload;
         }
         catch(err:any){
             throw new UnauthorizedError(err.message);
@@ -53,9 +50,9 @@ class AuthService {
         const user: UserBase = usersService.get(payload.uid);
         return new TokenSet(
             this.generateAccessToken(user),
-            this.Auth_Token_TTL,
+            Auth_Token_TTL,
             this.generateRefreshToken(user),
-            this.Refresh_Token_TTL
+            Refresh_Token_TTL
         );
     }
 
@@ -63,15 +60,14 @@ class AuthService {
         const userModules: String[] = moduleService
                                         .getForUser(user.id)
                                         .map(classModule => classModule.toString());
-        console.log(userModules);
         const access_token = signJwt(
             {
                 uid: user.id,
-                scope: userModules
+                scopes: userModules
             },
-            this.JWT_SECRET,
+            JWT_SECRET,
             {
-                expiresIn: this.Auth_Token_TTL,
+                expiresIn: Auth_Token_TTL,
                 subject: user.name,
                 issuer: "xeptagon-class-api"
             }
@@ -84,9 +80,9 @@ class AuthService {
             {
                 uid: user.id,
             },
-            this.JWT_SECRET,
+            JWT_SECRET,
             {
-                expiresIn: this.Refresh_Token_TTL,
+                expiresIn: Refresh_Token_TTL,
                 subject: user.name,
                 issuer: "xeptagon-class-api"
             }

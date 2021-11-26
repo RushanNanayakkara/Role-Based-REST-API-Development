@@ -243,7 +243,9 @@
 				"description": "Creates a user with the given data.",
 				"security": [
 					{
-						"jwt": []
+						"jwt": [
+							"Voice Recognition"
+						]
 					}
 				],
 				"parameters": [],
