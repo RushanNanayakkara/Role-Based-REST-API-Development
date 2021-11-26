@@ -63,7 +63,7 @@ class AuthService {
         const access_token = signJwt(
             {
                 uid: user.id,
-                scopes: userModules
+                scopes: [...userModules, user.type]
             },
             JWT_SECRET,
             {

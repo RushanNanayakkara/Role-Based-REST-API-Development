@@ -1,12 +1,6 @@
-import { UserBase } from "../user.model";
-
 export class UserCreationResponse {
 
-    private _password: string;
-
-    constructor(user: UserBase) {
-        this._password = user.password;
-    }
+    constructor(private _password:string) {}
 
     public get password(): string {
         return this._password;

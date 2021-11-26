@@ -212,9 +212,9 @@
 				}
 			}
 		},
-		"/users": {
+		"/users/instructor": {
 			"post": {
-				"operationId": "CreateUser",
+				"operationId": "CreateInstructorUser",
 				"responses": {
 					"201": {
 						"description": "Created",
@@ -244,7 +244,7 @@
 				"security": [
 					{
 						"jwt": [
-							"Voice Recognition"
+							"ADMIN"
 						]
 					}
 				],

@@ -13,26 +13,26 @@ import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
 import { usersService } from "../services/user.service";
 import { UserCreationRequest } from "../interfaces/requests/user.request";
 import { UserCreationResponse } from "../models/responses/user.response";
-import { ClassModule } from "../util/constants";
+import { UserType } from "../models/user.model";
 
 @Route("users") 
 export class UsersController extends Controller {
 
   /**
-   * Creates a user with the given data. 
-   * @param requestBody  
+   * Creates a user with the given data.
+   * @param requestBody
    * @returns Craeted user with id and generated password
    */
-  @Post()   
-  @Security("jwt",[ClassModule.VOICE_REC])
+  @Post("/instructor")
+  @Security("jwt",[UserType.Admin])
   @SuccessResponse("201", "Created") 
   @Example(userCreateResonse)
   @Response<ValidateErrorJSON>(422, "Validation Failed")
-  public async createUser(
+  public async createInstructorUser(
     @Body() requestBody: UserCreationRequest
   ): Promise<UserCreationResponse> {
     this.setStatus(201);
-    const createdUser = usersService.create(requestBody);
-    return new UserCreationResponse(createdUser);
+    return usersService.create(requestBody,UserType.Instructor);
   }
+
 }
