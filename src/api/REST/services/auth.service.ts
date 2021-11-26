@@ -59,8 +59,6 @@ class AuthService {
     private async generateAccessToken(user: UserBase): Promise<string> {
         const userModules: String[] = await moduleService
                                         .getForUser(user.id);
-
-                                        
         const access_token = signJwt(
             {
                 uid: user.id,
