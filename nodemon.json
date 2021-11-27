@@ -2,9 +2,5 @@
     "exec": "ts-node src/server.ts",
     "watch": ["src"],
     "ext": "ts",
-    "delay": "500",
-    "events": {
-		"restart": "kill-port 3000",
-		"crash": "kill-port 3000"
-	 }
+    "delay": "500"
 }

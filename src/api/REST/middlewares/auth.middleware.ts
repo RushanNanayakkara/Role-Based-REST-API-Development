@@ -2,7 +2,7 @@ import { Request } from "express";
 import * as jwt from "jsonwebtoken";
 import { UnauthorizedError } from "../interfaces/errors/unauthorized.error";
 import { JWTPayload } from "../interfaces/requests/auth.request";
-import { JWT_SECRET } from "../util/constants";
+import { JWT_SECRET_ACCESS } from "../util/constants";
 
 export async function expressAuthentication(
     request: Request,
@@ -27,10 +27,10 @@ export async function expressAuthentication(
             if (!token) {
                 reject(new UnauthorizedError("Unauthorized"));
             }
-            jwt.verify(token, JWT_SECRET, function (err: any, decoded: any) {
+            jwt.verify(token, JWT_SECRET_ACCESS, function (err: any, decoded: any) {
                 const decodedPayload: JWTPayload = decoded as JWTPayload;
                 if (err) {
-                    console.error(err.message);
+                    console.error(err.message); 
                     reject(new UnauthorizedError("Invalid token"));
                 } else {
                     if (!scopes) throw new UnauthorizedError("Unauthorized scope")

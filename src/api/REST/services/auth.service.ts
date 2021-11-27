@@ -6,7 +6,7 @@ import { usersService } from './user.service';
 import { moduleService } from "./module.service";
 import bcrypt from "bcrypt";
 import { UnauthorizedError } from "../interfaces/errors/unauthorized.error";
-import { Auth_Token_TTL, JWT_SECRET, Refresh_Token_TTL } from "../util/constants";
+import { Auth_Token_TTL, JWT_SECRET_ACCESS, JWT_SECRET_REFRESH, Refresh_Token_TTL } from "../util/constants";
 
 class AuthService {
 
@@ -41,13 +41,14 @@ class AuthService {
     public async refreshToken(refreshParam: RefreshRequest): Promise<TokenSet> {
         let payload: JWTPayload;
         try {
-            payload = verifyJwt(refreshParam.refresh_token, JWT_SECRET) as JWTPayload;
+            payload = verifyJwt(refreshParam.refresh_token, JWT_SECRET_REFRESH) as JWTPayload;
         }
         catch (err: any) {
             throw new UnauthorizedError(err.message);
         }
 
-        const user: UserBase = await usersService.get(payload.uid);
+        const user: UserBase = await usersService.getById(payload.uid);
+        console.log(payload.uid);
         return new TokenSet(
             await this.generateAccessToken(user),
             Auth_Token_TTL,
@@ -64,7 +65,7 @@ class AuthService {
                 uid: user.id,
                 scopes: [...userModules, user.type]
             },
-            JWT_SECRET,
+            JWT_SECRET_ACCESS,
             {
                 expiresIn: Auth_Token_TTL,
                 subject: user.name,
@@ -79,7 +80,7 @@ class AuthService {
             {
                 uid: user.id,
             },
-            JWT_SECRET,
+            JWT_SECRET_REFRESH,
             {
                 expiresIn: Refresh_Token_TTL,
                 subject: user.name,

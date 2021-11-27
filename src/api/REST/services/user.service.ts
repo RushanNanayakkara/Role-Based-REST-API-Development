@@ -57,6 +57,22 @@ class UsersService {
       } as UserBase;
     })
   }
+
+  public async getById(userId: string): Promise<UserBase> {
+    return User.findOne({
+      where:{id:userId}
+    }).then(user=>{
+      if(user==null){
+        throw new NotFoundError("User not found");
+      }
+      return {
+        id:user.id,
+        name:user.name,
+        password:user.password,
+        type:user.type
+      } as UserBase;
+    })
+  }
 }
 
 export const usersService = new UsersService();
