@@ -8,7 +8,6 @@ import {
     Security,
 } from "tsoa";
 import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
-import { UserCreationResponse } from "../models/responses/user.response";
 import { UserType } from "../models/user.model";
 import { ClassCreateRequest } from "../interfaces/requests/class.request";
 import { classService } from "../services/class.service";

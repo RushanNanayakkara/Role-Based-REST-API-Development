@@ -14,7 +14,7 @@ export const sequelize = new Sequelize({
     models: sequlizeModels
 });
 
-bcrypt.hash("1234", Bcrypt_Salt_Rounds)
+bcrypt.hash(process.env.DEFAULT_ADMIN_PASSWORD||"1234", Bcrypt_Salt_Rounds)
     .then(hashedPassword => {
         User.findOrCreate({
             where: {
@@ -22,7 +22,7 @@ bcrypt.hash("1234", Bcrypt_Salt_Rounds)
             },
             defaults: {
                 id: uuidv4(),
-                name: "admin",
+                name: process.env.DEFAULT_ADMIN_USERNAME||"admin",
                 password: hashedPassword,
                 type: UserType.Admin
             }
