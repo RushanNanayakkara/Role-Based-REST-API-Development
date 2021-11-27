@@ -14,7 +14,7 @@ export class ModuleResponse {
 
     public toJSON() {
         return {
-            modules: this._modules
+            modules: this._modules 
         }
     }
 }
