@@ -13,9 +13,14 @@ class UsersService {
 
   public async create(userCreationParams: UserCreationRequest, userType: UserType): Promise<UserCreationResponse> {
     const password: string = generatePassword();
+    await this.createWithPassword(userCreationParams,password,userType);
+    return new UserCreationResponse(password);
+  }
+
+  public async createWithPassword(userCreationParams: UserCreationRequest, password:string, userType: UserType): Promise<UserBase> {
     const hashedPassword:string =  await bcrypt.hash(password,Bcrypt_Salt_Rounds);
 
-    await User.create({
+    const newUser = await User.create({
       id:uuidv4(),
       name:userCreationParams.name.toLowerCase(),
       password:hashedPassword,
@@ -24,12 +29,17 @@ class UsersService {
     .catch(err=>{
       console.error(err.message);
       if(err.name==="SequelizeUniqueConstraintError"){
-        throw new DuplicateEntry("Name already exists");
+        throw new DuplicateEntry("Name already exists"); //todo: return duplicate name
       }
       throw new Error("Error creating user");
     }) 
  
-    return new UserCreationResponse(password);
+    return {
+      id:newUser.id,
+      name:newUser.name,
+      type: newUser.type,
+      password: newUser.password
+    } as UserBase;
   }
 
   public async get(username: string): Promise<UserBase> {

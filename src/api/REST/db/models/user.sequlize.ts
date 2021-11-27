@@ -5,6 +5,7 @@ import { UserType } from '../../models/user.model';
     timestamps: true
 })
 export class User extends Model{
+    
     @PrimaryKey
     @Column
     id!: string;
@@ -18,4 +19,5 @@ export class User extends Model{
 
     @Column
     type!: UserType;
+
 }

@@ -12,7 +12,7 @@ export const sequelize = new Sequelize({
     username: 'root',
     password: 'root',
     models: sequlizeModels
-})
+});
 
 bcrypt.hash("1234",Bcrypt_Salt_Rounds)
 .then(hashedPassword=>{

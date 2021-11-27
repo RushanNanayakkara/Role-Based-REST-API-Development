@@ -95,7 +95,7 @@
 			"ClassModule": {
 				"enum": [
 					"image-processing",
-					"voice recognition",
+					"voice-recognition",
 					"face-detection"
 				],
 				"type": "string"
