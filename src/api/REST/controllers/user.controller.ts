@@ -19,14 +19,13 @@ import { UserType } from "../models/user.model";
 export class UserController extends Controller {
 
   /**
-   * Creates a user with the given data.
+   * Creates an Instructor User with the given data.
    * @param requestBody
-   * @returns Craeted user with id and generated password
+   * @returns Craeted instructor user's password
    */
   @Post("/instructor")
   @Security("jwt", [UserType.Admin])
   @SuccessResponse("201", "Created")
-  @Example(userCreateResonse)
   @Response<ValidateErrorJSON>(422, "Validation Failed")
   public async createInstructorUser(
     @Body() requestBody: UserCreationRequest

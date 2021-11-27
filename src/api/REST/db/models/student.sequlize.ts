@@ -5,19 +5,19 @@ import { User } from './user.sequlize';
 @Table({
     timestamps: true
 })
-export class Student extends Model{
+export class Student extends Model {
 
     @ForeignKey(() => User)
     @PrimaryKey
     @Column
-    userId!:string
+    userId!: string
 
     @BelongsTo(() => User)
     user!: User
 
     @ForeignKey(() => SequilizeClass)
     @Column
-    classId!:string
+    classId!: string
 
     @BelongsTo(() => SequilizeClass)
     class!: SequilizeClass

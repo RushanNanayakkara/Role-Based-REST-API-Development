@@ -30,7 +30,7 @@ export async function expressAuthentication(
             jwt.verify(token, JWT_SECRET_ACCESS, function (err: any, decoded: any) {
                 const decodedPayload: JWTPayload = decoded as JWTPayload;
                 if (err) {
-                    console.error(err.message); 
+                    console.error(err.message);
                     reject(new UnauthorizedError("Invalid token"));
                 } else {
                     if (!scopes) throw new UnauthorizedError("Unauthorized scope")

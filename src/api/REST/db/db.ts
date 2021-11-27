@@ -14,19 +14,19 @@ export const sequelize = new Sequelize({
     models: sequlizeModels
 });
 
-bcrypt.hash("1234",Bcrypt_Salt_Rounds)
-.then(hashedPassword=>{
-    User.findOrCreate({
-        where: {
-            type: UserType.Admin
-        },
-        defaults:{
-            id:uuidv4(),
-            name: "admin",
-            password: hashedPassword,
-            type: UserType.Admin
-        }
-    
+bcrypt.hash("1234", Bcrypt_Salt_Rounds)
+    .then(hashedPassword => {
+        User.findOrCreate({
+            where: {
+                type: UserType.Admin
+            },
+            defaults: {
+                id: uuidv4(),
+                name: "admin",
+                password: hashedPassword,
+                type: UserType.Admin
+            }
+
+        })
     })
-})
 

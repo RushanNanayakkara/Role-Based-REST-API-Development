@@ -5,18 +5,18 @@ import { SequilizeClass } from './class.sequilize'
 @Table({
     timestamps: true
 })
-export class ClassModuleSequille extends Model{
-    
+export class ClassModuleSequille extends Model {
+
     @ForeignKey(() => SequilizeClass)
     @PrimaryKey
     @Column
-    classId!:string
+    classId!: string
 
     @BelongsTo(() => SequilizeClass)
     class!: SequilizeClass
 
     @PrimaryKey
     @Column
-    module!:string
+    module!: string
 
 }

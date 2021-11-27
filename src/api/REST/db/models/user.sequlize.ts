@@ -4,8 +4,8 @@ import { UserType } from '../../models/user.model';
 @Table({
     timestamps: true
 })
-export class User extends Model{
-    
+export class User extends Model {
+
     @PrimaryKey
     @Column
     id!: string;

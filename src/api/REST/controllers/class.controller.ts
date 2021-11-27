@@ -12,23 +12,24 @@ import { UserCreationResponse } from "../models/responses/user.response";
 import { UserType } from "../models/user.model";
 import { ClassCreateRequest } from "../interfaces/requests/class.request";
 import { classService } from "../services/class.service";
+import { ClassCreationResponse } from "../models/responses/class.response";
 
 @Route("class")
 export class ClassController extends Controller {
 
     /**
-     * Creates a user with the given data.
+     * Create class with students. Student accounts  are automatically craeted with 
+     * relevant scopes.
      * @param requestBody
-     * @returns Craeted user with id and generated password
+     * @returns Password for the class
      */
     @Post("")
     @Security("jwt", [UserType.Instructor])
     @SuccessResponse("201", "Created")
-    // @Example(userCreateResonse)
     @Response<ValidateErrorJSON>(422, "Validation Failed")
-    public async createInstructorUser(
+    public async createClassWithStudents(
         @Body() requestBody: ClassCreateRequest
-    ): Promise<UserCreationResponse> {
+    ): Promise<ClassCreationResponse> {
         this.setStatus(201);
         return classService.create(requestBody);
     }

@@ -2,7 +2,6 @@ import { sequelize } from "../db/db";
 import { SequilizeClass } from "../db/models/class.sequilize";
 import { generatePassword } from "../helpers/password.helper";
 import { ClassCreateRequest } from "../interfaces/requests/class.request";
-import { UserCreationResponse } from "../models/responses/user.response";
 import { UserType } from "../models/user.model";
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,10 +10,11 @@ import { User } from "../db/models/user.sequlize";
 import { Bcrypt_Salt_Rounds } from "../util/constants";
 import { ClassModuleSequille } from "../db/models/class.module.sequilize";
 import { DuplicateEntry } from "../interfaces/errors/invaliddata.error";
+import { ClassCreationResponse } from "../models/responses/class.response";
 
 class ClassService {
 
-    public async create(classCreateParams: ClassCreateRequest): Promise<UserCreationResponse> {
+    public async create(classCreateParams: ClassCreateRequest): Promise<ClassCreationResponse> {
         const t = await sequelize.transaction();
         try {
             const password: string = generatePassword();
@@ -57,7 +57,7 @@ class ClassService {
             await Promise.all(userPromises);
 
             t.commit;
-            return new UserCreationResponse(password);
+            return new ClassCreationResponse(password);
         }
         catch (err: any) {
             console.error(err.message);
