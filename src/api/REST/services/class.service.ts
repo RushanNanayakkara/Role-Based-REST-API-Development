@@ -9,7 +9,7 @@ import { Student } from "../db/models/student.sequlize";
 import { User } from "../db/models/user.sequlize";
 import { Bcrypt_Salt_Rounds } from "../util/constants";
 import { ClassModuleSequille } from "../db/models/class.module.sequilize";
-import { DuplicateEntry } from "../interfaces/errors/invaliddata.error";
+import { DuplicateEntry } from "../exceptions/invaliddata.error";
 import { ClassCreationResponse } from "../models/responses/class.response";
 
 class ClassService {

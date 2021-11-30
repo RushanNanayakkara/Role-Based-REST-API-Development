@@ -6,8 +6,8 @@ import { UserCreationResponse } from "../models/responses/user.response";
 import bcrypt from 'bcrypt'
 import { Bcrypt_Salt_Rounds } from "../util/constants";
 import { User } from "../db/models/user.sequlize";
-import { DuplicateEntry } from "../interfaces/errors/invaliddata.error";
-import { NotFoundError } from "../interfaces/errors/notfound.error";
+import { DuplicateEntry } from "../exceptions/invaliddata.error";
+import { NotFoundError } from "../exceptions/notfound.error";
 
 class UsersService {
 

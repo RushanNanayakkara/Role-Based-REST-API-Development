@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import { RegisterRoutes } from "../build/routes";
 import swaggerUi from "swagger-ui-express";
 import { ValidateError } from "@tsoa/runtime";
-import { XeptagonError } from "./api/REST/interfaces/errors/xeptagon.error";
+import { XeptagonError } from "./api/REST/exceptions/xeptagon.error";
 import { sequelize } from "./api/REST/db/db";
 
 sequelize.sync();

@@ -1,6 +1,6 @@
 import { Request } from "express";
 import * as jwt from "jsonwebtoken";
-import { UnauthorizedError } from "../interfaces/errors/unauthorized.error";
+import { UnauthorizedError } from "../exceptions/unauthorized.error";
 import { JWTPayload } from "../interfaces/requests/auth.request";
 import { JWT_SECRET_ACCESS } from "../util/constants";
 

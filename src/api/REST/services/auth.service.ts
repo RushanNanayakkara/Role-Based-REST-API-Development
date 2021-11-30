@@ -5,7 +5,7 @@ import { sign as signJwt, verify as verifyJwt } from 'jsonwebtoken';
 import { usersService } from './user.service';
 import { moduleService } from "./module.service";
 import bcrypt from "bcrypt";
-import { UnauthorizedError } from "../interfaces/errors/unauthorized.error";
+import { UnauthorizedError } from "../exceptions/unauthorized.error";
 import { Auth_Token_TTL, JWT_SECRET_ACCESS, JWT_SECRET_REFRESH, Refresh_Token_TTL } from "../util/constants";
 
 class AuthService {
@@ -80,7 +80,7 @@ class AuthService {
             {
                 uid: user.id,
             },
-            JWT_SECRET_REFRESH,
+            JWT_SECRET_ACCESS,
             {
                 expiresIn: Refresh_Token_TTL,
                 subject: user.name,

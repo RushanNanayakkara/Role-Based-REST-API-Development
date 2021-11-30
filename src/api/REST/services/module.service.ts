@@ -2,7 +2,7 @@ import { ClassModuleSequille } from "../db/models/class.module.sequilize";
 import { Student } from "../db/models/student.sequlize";
 import { User } from "../db/models/user.sequlize";
 import { classModuleEnumFromValue } from "../helpers/enum.helper";
-import { NotFoundError } from "../interfaces/errors/notfound.error";
+import { NotFoundError } from "../exceptions/notfound.error";
 import { ExecutedModule } from "../models/responses/module.response";
 import { UserType } from "../models/user.model";
 import { ClassModule } from "../util/constants";

@@ -8,12 +8,12 @@ import {
     Security,
     Request,
 } from "tsoa";
-import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
+import { ValidateErrorJSON } from "../exceptions/validation.error";
 import { ExecutedModule, ModuleResponse } from "../models/responses/module.response";
 import { moduleService } from "../services/module.service";
 import { AuthenticatedRequest } from "../interfaces/requests/authenticated.request";
 import { ClassModule } from "../util/constants";
-import { UnauthorizedError } from "../interfaces/errors/unauthorized.error";
+import { UnauthorizedError } from "../exceptions/unauthorized.error";
 
 @Route("modules")
 export class UsersController extends Controller {

@@ -7,7 +7,7 @@ import {
     SuccessResponse,
     Security,
 } from "tsoa";
-import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
+import { ValidateErrorJSON } from "../exceptions/validation.error";
 import { UserType } from "../models/user.model";
 import { ClassCreateRequest } from "../interfaces/requests/class.request";
 import { classService } from "../services/class.service";

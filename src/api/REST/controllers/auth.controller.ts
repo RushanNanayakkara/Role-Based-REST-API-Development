@@ -6,7 +6,7 @@ import {
     Response,
     SuccessResponse,
 } from "tsoa";
-import { ValidateErrorJSON } from "../interfaces/errors/validation.error";
+import { ValidateErrorJSON } from "../exceptions/validation.error";
 import { AuthRequest, RefreshRequest } from "../interfaces/requests/auth.request";
 import { TokenSet } from "../models/responses/auth.response";
 import { authService } from "../services/auth.service";
